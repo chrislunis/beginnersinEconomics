@@ -3,13 +3,9 @@ from PIL import Image
 
 def show_primary_sector():
     st.title("Primary Sector")
+    st.markdown("<div style='background-color: #ffddc1; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     if st.button("Go to Home"):
         st.session_state.page = "home"
-        st.session_state.question_index = 0
-        st.session_state.correct_answers = 0
-        st.session_state.user_answers = []
-        st.session_state.correct_answers_list = []
-        st.experimental_rerun()
     
     st.write(
         """- Involves the extraction and harvesting of natural resources.
@@ -19,20 +15,16 @@ def show_primary_sector():
 - It provides the foundation for all other economic activity.
 - India is the largest employer of the Primary Sector."""
     )
+    st.markdown("</div>", unsafe_allow_html=True)
     # st.image("Images/Primary.jpg")  # Replace with your image path
     if st.button("Take Quiz"):
         st.session_state.page = "quiz_primary"
-        st.experimental_rerun()
 
 def show_secondary_sector():
     st.title("Secondary Sector")
+    st.markdown("<div style='background-color: #ffcccb; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     if st.button("Go to Home"):
         st.session_state.page = "home"
-        st.session_state.question_index = 0
-        st.session_state.correct_answers = 0
-        st.session_state.user_answers = []
-        st.session_state.correct_answers_list = []
-        st.experimental_rerun()
     
     st.write(
         """- Focuses on manufacturing and industry.
@@ -40,20 +32,16 @@ def show_secondary_sector():
 - Examples include automobile manufacturing, construction, and food processing.
 - It is also called the Industrial Sector."""
     )
+    st.markdown("</div>", unsafe_allow_html=True)
     # st.image("Images/Secondary.jpg")  # Replace with your image path
     if st.button("Take Quiz"):
         st.session_state.page = "quiz_secondary"
-        st.experimental_rerun()
 
 def show_tertiary_sector():
     st.title("Tertiary Sector")
+    st.markdown("<div style='background-color: #ccffcc; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     if st.button("Go to Home"):
         st.session_state.page = "home"
-        st.session_state.question_index = 0
-        st.session_state.correct_answers = 0
-        st.session_state.user_answers = []
-        st.session_state.correct_answers_list = []
-        st.experimental_rerun()
     
     st.write(
         """- Provides services rather than goods.
@@ -61,20 +49,16 @@ def show_tertiary_sector():
 - The emphasis here is on providing services to consumers and businesses.
 - Services are also called "intangible goods"."""
     )
+    st.markdown("</div>", unsafe_allow_html=True)
     # st.image("Images/Tertiary.jpg")  # Replace with your image path
     if st.button("Take Quiz"):
         st.session_state.page = "quiz_tertiary"
-        st.experimental_rerun()
 
 def show_quiz(sector):
     st.title(f"{sector.capitalize()} Sector Quiz")
+    st.markdown("<div style='background-color: #ffccff; padding: 10px; border-radius: 10px;'>", unsafe_allow_html=True)
     if st.button("Go to Home"):
         st.session_state.page = "home"
-        st.session_state.question_index = 0
-        st.session_state.correct_answers = 0
-        st.session_state.user_answers = []
-        st.session_state.correct_answers_list = []
-        st.experimental_rerun()
     
     questions = {
         "primary": [
@@ -92,7 +76,7 @@ def show_quiz(sector):
         "tertiary": [
             ("What does Tertiary Sector provide?", ["Natural Resources", "Services", "Goods"], "Services"),
             ("Which of the following is not included in Tertiary Sector?", ["Manufacturing", "Entertainment", "Retail"], "Manufacturing"),
-            ("Tertiary Sector emphasises on services provided by", ["Business to Business", "Business to Consumers", "Consumers to Business"], "Consumers to Business"),
+            ("Tertiary Sector emphasises on services provided by", ["Business to Business", "Business to Consumers", "Consumers to Business"], "Business to Consumers"),
             ("Services are also known as?", ["Service Goods", "Manufacturing Goods", "Intangible Goods"], "Intangible Goods")
         ]
     }
@@ -104,7 +88,7 @@ def show_quiz(sector):
     if question_index < len(questions[sector]):
         question, options, correct_answer = questions[sector][question_index]
         st.write(question)
-        choice = st.radio("Select an option", options)
+        choice = st.radio("Select an option", options, key=f"quiz_{question_index}")
         if st.button("Next"):
             user_answers.append(choice)
             correct_answers_list.append(correct_answer)
@@ -117,7 +101,6 @@ def show_quiz(sector):
             st.session_state.question_index = question_index + 1
             st.session_state.user_answers = user_answers
             st.session_state.correct_answers_list = correct_answers_list
-            st.experimental_rerun()  # Force rerun to update question
     else:
         st.write(f"Quiz completed! You got {st.session_state.get('correct_answers', 0)} out of {len(questions[sector])} correct.")
         st.write("Here is a summary of your answers:")
@@ -139,7 +122,6 @@ def show_quiz(sector):
             st.session_state.correct_answers = 0
             st.session_state.user_answers = []
             st.session_state.correct_answers_list = []
-            st.experimental_rerun()  # Force rerun to return to home
 
 def main():
     if "page" not in st.session_state:
@@ -155,7 +137,6 @@ def main():
         with col1:
             if st.button("Primary Sector", key="primary"):
                 st.session_state.page = "primary"
-                st.experimental_rerun()  # Force rerun to update page
 
             st.image("Images/Primary.jpg", use_column_width=True)  # Replace with your image path
             st.write("Primary Sector")
@@ -163,7 +144,6 @@ def main():
         with col2:
             if st.button("Secondary Sector", key="secondary"):
                 st.session_state.page = "secondary"
-                st.experimental_rerun()  # Force rerun to update page
 
             st.image("Images/Secondary.jpg", use_column_width=True)  # Replace with your image path
             st.write("Secondary Sector")
@@ -171,7 +151,6 @@ def main():
         with col3:
             if st.button("Tertiary Sector", key="tertiary"):
                 st.session_state.page = "tertiary"
-                st.experimental_rerun()  # Force rerun to update page
 
             st.image("Images/Tertiary.jpg", use_column_width=True)  # Replace with your image path
             st.write("Tertiary Sector")
